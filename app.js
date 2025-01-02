@@ -13,10 +13,10 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
 app.use('/new', formRouter);
 app.use('/message', msgRouter);
 app.use('/', indexRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
