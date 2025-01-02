@@ -10,7 +10,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
 
-app.listen(8000)
+app.listen(3000)
 
 app.use('/new', formRouter);
 app.use('/message', msgRouter);
