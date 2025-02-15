@@ -5,7 +5,7 @@ const { indexRouter } = require('./routes/indexRouter');
 const formRouter = require('./routes/formRouter');
 const msgRouter = require('./routes/msgRouter');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 
 app.set("views", path.join(__dirname, "views"));
