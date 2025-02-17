@@ -32,7 +32,7 @@ const insertDataQuery = `
   ('alice', 'Hello, this is Alice!'),
   ('bob', 'Hey there, Bob here!'),
   ('charlie', 'Charlie says hi!')
-   ON CONFLICT ON CONSTRAINT unique_username_message DO NOTHING;
+  ON CONFLICT ON CONSTRAINT unique_username_message DO NOTHING;
 `;
 
 async function populateDB() {

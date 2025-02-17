@@ -38,10 +38,10 @@ async function insertMessage(username, message) {
   }
 }
 
-async function updateMessage(id, newMessage) {
-  const query = "UPDATE messages SET message = $1 WHERE id =$2;"
+async function updateMessage(username, newMessage, id) {
+  const query = "UPDATE messages SET username = $1, message = $2 WHERE id = $3;"
   try {
-    await pool.query(query, [newMessage, id]);
+    await pool.query(query, [username, newMessage, id]);
   } catch (err) {
     console.error("Error updating message:", err);
     throw err;

@@ -18,7 +18,7 @@ async function getMessageById(req, res) {
 }
 
 async function insertMessageGet(req, res) {
-  res.render("form")
+  res.render("newMsgForm")
 }
 
 async function insertMessagePost(req, res) {
@@ -36,10 +36,8 @@ async function updateMessageGet(req, res) {
 
 async function updateMessagePost(req, res) {
   const id = req.params.id;
-  console.log(id)
-  const newMsg = req.body.message;
-  console.log(newMsg);
-  await db.updateMessage(id, newMsg);
+  const { username, message } = req.body;
+  await db.updateMessage(username, message, id);
   res.redirect('/')
 }
 
