@@ -17,6 +17,17 @@ async function getAllMessages() {
   }
 }
 
+async function getMessageById(id) {
+  const query = "SELECT * FROM messages WHERE id = $1;";
+  try {
+    const res = await pool.query(query, [id]);
+    return res.rows[0]; // Returns the first (and should be only) matching message
+  } catch (err) {
+    console.error("Error fetching message by ID:", err);
+    throw err;
+  }
+}
+
 async function insertMessage(username, message) {
   const query = "INSERT INTO messages (username, message) VALUES ($1, $2);";
   try {
@@ -47,4 +58,4 @@ async function deleteMessage(id) {
   }
 }
 
-module.exports = { getAllMessages, insertMessage, updateMessage, deleteMessage };
+module.exports = { getAllMessages, getMessageById, insertMessage, updateMessage, deleteMessage };

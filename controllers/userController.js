@@ -8,6 +8,15 @@ async function getAllMessages(req, res) {
   })
 };
 
+async function getMessageById(req, res) {
+  const id = req.params.id;
+  const msg = await db.getMessageById(id);
+  res.render("searchedMsg", {
+    title: 'Message',
+    msg
+  })
+}
+
 async function insertMessageGet(req, res) {
   res.render("form")
 }
@@ -42,6 +51,7 @@ async function deleteMessage(req, res) {
 
 module.exports = {
   getAllMessages,
+  getMessageById,
   insertMessageGet,
   insertMessagePost,
   updateMessageGet,
