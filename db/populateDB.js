@@ -9,11 +9,22 @@ const pool = new Pool({
 
 const createTableQuery = `
   CREATE TABLE IF NOT EXISTS messages (
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(50) NOT NULL,
     message TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
   );
+
+  -- Add a unique constraint if it doesn't exist
+  DO $$ 
+  BEGIN
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_constraint WHERE conname = 'unique_username_message'
+    ) THEN
+      ALTER TABLE messages ADD CONSTRAINT unique_username_message UNIQUE (username, message);
+    END IF;
+  END $$;
+
 `;
 
 const insertDataQuery = `
@@ -21,6 +32,7 @@ const insertDataQuery = `
   ('alice', 'Hello, this is Alice!'),
   ('bob', 'Hey there, Bob here!'),
   ('charlie', 'Charlie says hi!')
+   ON CONFLICT ON CONSTRAINT unique_username_message DO NOTHING;
 `;
 
 async function populateDB() {
@@ -40,4 +52,3 @@ async function populateDB() {
 
 populateDB();
 
-console.log("Database URL:", process.env.DATABASE_URL);

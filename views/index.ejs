@@ -1,27 +1,17 @@
 <html>
+  <body>
+    <h1><%= title%></h1>
+    <% messages.forEach((msg)=> { %>
 
-<body>
-  <h1>
-    <%= title%>
-  </h1>
-  <% messages.forEach((msg)=> { %>
-    <h1>
-      <%= msg.user %>
-    </h1>
-    <p>
-      <%= msg.text %>
-    </p>
-    <p>
-      <%= msg.added %>
-    </p>
-
-    <a href="/message/<%= msg.id %>">Open</a>
+    <span><h1><%= msg.username %></h1></span>
+    <span><%= msg.id %></span>
+    <p><%= msg.message %></p>
+    <p><%= msg.created_at %></p>
     <%})%>
 
-      <br><br>
-      <div>
-        <a href="/new">Add a new Message</a>
-      </div>
-</body>
-
+    <br /><br />
+    <div>
+      <a href="/new">Add a new Message</a>
+    </div>
+  </body>
 </html>

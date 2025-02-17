@@ -8,7 +8,7 @@ const pool = new Pool({
 
 async function getAllMessages() {
   try {
-    const res = await pool.query("SELECT * FROM messages ORDER BY created_at DESC;");
+    const res = await pool.query("SELECT * FROM messages ORDER BY id;");
     return res.rows;
   }
   catch (err) {
@@ -18,7 +18,7 @@ async function getAllMessages() {
 }
 
 async function insertMessage(username, message) {
-  const query = "INSERT INTO message (username, messages) VALUES ($1, $2);";
+  const query = "INSERT INTO messages (username, message) VALUES ($1, $2);";
   try {
     await pool.query(query, [username, message]);
   } catch (err) {
@@ -28,10 +28,9 @@ async function insertMessage(username, message) {
 }
 
 async function updateMessage(id, newMessage) {
-  const query = "UPDATE messages SET message = $1 WHERE id =$2 RETURNING *;"
+  const query = "UPDATE messages SET message = $1 WHERE id =$2;"
   try {
-    const res = await pool.query(query, [newMessage, id]);
-    return res.rows[0];
+    await pool.query(query, [newMessage, id]);
   } catch (err) {
     console.error("Error updating message:", err);
     throw err;

@@ -27,12 +27,11 @@ async function updateMessageGet(req, res) {
 
 async function updateMessagePost(req, res) {
   const id = req.params.id;
+  console.log(id)
   const newMsg = req.body.message;
-  const message = await db.updateMessage(id, newMsg);
-  res.render("index", {
-    title: "Updated Message",
-    message
-  });
+  console.log(newMsg);
+  await db.updateMessage(id, newMsg);
+  res.redirect('/')
 }
 
 async function deleteMessage(req, res) {
